@@ -1,0 +1,21 @@
+{
+  "name": "Express-Newsfeed",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mrbarbasa/Express-Newsfeed",
+  "authors": [
+    "Joanne <jmacnut@gmail.com",
+    "Marifel <mrbarbasa@gmail.com>"
+  ],
+  "description": "A newsfeed",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "~5.5.0"
+  }
+}

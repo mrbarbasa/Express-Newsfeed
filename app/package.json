@@ -1,0 +1,22 @@
+{
+  "name": "Express-Newsfeed",
+  "version": "0.0.0",
+  "description": "A newsfeed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joanne Hayashi, Marifel Barbasa",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.10.6",
+    "jade": "^1.8.2",
+    "mongoose": "^3.8.21"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.5.2",
+    "gulp": "^3.8.10",
+    "gulp-sass": "^1.2.4",
+    "tiny-lr": "^0.1.4"
+  }
+}

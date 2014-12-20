@@ -1,0 +1,84 @@
+.gitignore
+  # Mac-specific files
+  .DS_Store
+  # Add this after node_modules
+  bower_components
+
+mkdir docs
+  touch docs/project_setup.txt
+
+cd app  
+  npm init
+  npm i -S express jade mongoose
+  npm i -D connect-livereload gulp gulp-sass tiny-lr
+  bower init
+  touch .bowerrc
+  mkdir public
+  bower i -S foundation
+  mkdir scss
+  mkdir scss/partials
+  touch scss/partials/_mixins.scss
+  touch scss/partials/_settings.scss
+  touch scss/styles.scss
+  mkdir public/css
+  mkdir public/js
+  mkdir public/img
+  touch gulpfile.js
+  mkdir views
+  mkdir views/includes
+
+  touch views/includes/header.jade
+    h2 This is the header
+
+  touch views/includes/footer.jade
+    h2 This is the footer
+
+  touch views/includes/head.jade
+    head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      title The Newsfeed Express
+      script(src="/bower_components/modernizr/modernizr.js")
+      link(rel="stylesheet", href="/css/styles.css")
+
+  touch views/includes/scripts.jade
+    script(src="/bower_components/jquery/dist/jquery.min.js")
+    script(src="/bower_components/foundation/js/foundation.min.js")
+    script
+      | $(document).foundation();
+
+  touch views/layout.jade
+    doctype html
+    html(lang="en")
+      include ./includes/head.jade
+      body
+        include ./includes/header.jade
+
+        block content
+
+        include ./includes/footer.jade
+
+        include ./includes/scripts.jade
+
+  touch views/index.jade
+    extends ./layout.jade
+
+    block content
+      | Main content
+
+  touch server.js
+
+  Import Foundation settings:
+  1. Copy settings from public/bower_components/foundation/scss/foundation/_settings.scss to scss/partials/_settings.scss
+  2. Change the import statement
+    from:
+      @import "foundation/functions";
+    to:
+      @import "../../public/bower_components/foundation/scss/foundation/functions";
+  3. Copy the following into scss/styles.scss
+    @import "partials/settings";
+    @import "partials/mixins";
+    @import "../public/bower_components/foundation/scss/foundation";
+  4. Restart gulp and save scss/styles.scss.  Verify that public/css/styles.css has Foundation styles.
+
+  Run gulp, enable Live Reload in Chrome, and then make changes to jade files and scss files.  Make sure your changes are immediately reflected in the browser.
