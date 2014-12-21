@@ -1,0 +1,13 @@
+extends ./layout.jade
+
+block content
+  //- button#share_button share
+  form(method='post',action='/news/:id')
+    input(type="hidden",name="_method",value="PUT")
+    label(for='title') Title:
+    input(type='text',name='title',id='title',value='#{newsItem.title}')
+    label(for='author') Author:
+    input(type='text',name='author',id='author',value='#{newsItem.author}')       
+    label(for='body') Body:
+    input(type='textarea',name='body',id='body',cols=360,rows=25,value='#{newsItem.body}')
+    input(type='submit',name='update',value='update')#update_button

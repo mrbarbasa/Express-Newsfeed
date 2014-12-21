@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var methodOverride = require('method-override');
 
 var CONNECTION_STRING = 'mongodb://dbadmin:' + process.env.DBPASS + '@ds063170.mongolab.com:63170/newsdb';
 
@@ -10,7 +11,8 @@ var CONNECTION_STRING = 'mongodb://dbadmin:' + process.env.DBPASS + '@ds063170.m
 app.use(express.static('./public'));
 app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({ extended: true }));
-
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
 
 // MongoLab CONNECTION_STRING
 mongoose.connect(CONNECTION_STRING);
@@ -74,9 +76,42 @@ app.post('/news', function(req, res) {
   });
 });
 
-// app.get('/news/:id/edit', function(req, res) {
+app.get('/news/:id/edit', function(req, res) {
+  NewsItem.find({
+    "_id": req.params.id
+  }, function(err, news) {
+    if (err) {
+      throw err;
+    }
+    else {
+      var locals = {
+        newsItem: news[0]
+      };
+      res.render('./edit_news', locals);
+    }
+  });
+});
 
-// });
+// TODO: Not working, still in progress
+app.put('/news/:id', function(req, res) {
+  console.log(req.params.id);
+  console.log(req.body);
+
+  NewsItem.update({
+    "_id": req.params.id
+  }, {
+    "title": req.body.title,
+    "author": req.body.author,
+    "body": req.body.body
+  }, function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.send('News item was successfully updated');
+    }
+  });
+});
 
 /* ROUTES */
 /* ====== */
