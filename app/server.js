@@ -37,6 +37,22 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/news/:id', function(req, res) {
+  NewsItem.find({
+    "_id": req.params.id
+  }, function(err, news) {
+    if (err) {
+      throw err;
+    }
+    else {
+      var locals = {
+        newsItem: news[0]
+      };
+      res.render('./news', locals);
+    }
+  });
+});
+
 app.get('/new_news', function(req, res) {
   res.render('./new_news');
 });
@@ -57,6 +73,10 @@ app.post('/news', function(req, res) {
     }
   });
 });
+
+// app.get('/news/:id/edit', function(req, res) {
+
+// });
 
 /* ROUTES */
 /* ====== */

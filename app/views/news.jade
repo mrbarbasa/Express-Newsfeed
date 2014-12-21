@@ -1,0 +1,11 @@
+extends ./layout.jade
+
+block content
+  .row
+    .small-12.medium-12.large-12.columns
+      .news-item
+        .news-image
+          img(src="http://lorempixel.com/240/78/cats/", alt="Hello News")
+        .news-text
+          h3 #{newsItem.title}
+          p #{newsItem.body}
