@@ -2,6 +2,65 @@
 @import "partials/mixins";
 @import "../public/bower_components/foundation/scss/foundation";
 
-h2 {
-  color: red;
+body {
+  background-image: url("/img/bg.png");
+  background-repeat: repeat-y;
+}
+
+header.header-block {
+  // background-color: yellow;
+  .row .columns {
+    padding: 0;
+  }
+  h1#site-title {
+    // background-color: orange;
+    font-weight: 700;
+    margin: 0;
+    padding-top: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #D5D5D5;
+  }
+}
+
+.content-block {
+  .row {
+    // background-color: tan;
+    .columns {
+      // background-color: pink;
+    }
+  }
+  .news-item {
+    // background-color: lightblue;
+    margin-top: 24px;
+    .news-image {
+      // background-color: yellow;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .news-text {
+      // background-color: lightgreen;
+      h3 {
+        color: #2D2D2D;
+        font-size: 1.1em;
+      }
+      p {
+        font-size: 0.9em;
+      }
+    }
+  }
+}
+
+footer.footer-block {
+  // background-color: yellow;
+  .row .columns {
+    padding: 0;
+  }
+  p {
+    // background-color: orange;
+    padding-top: 10px;
+    padding-bottom: 16px;
+    border-top: 1px solid #D5D5D5;
+  }
 }
