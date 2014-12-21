@@ -51,5 +51,42 @@ app.get('/', function(req, res) {
    
 });
 
+app.post('/news', function(req, res) {
+  console.log('user sent post request');
+  res.send('sent post');
+});
+
+/* ROUTES */
+/* ====== */
+
+// GET / to view a list of news post entries
+
+// GET /news/:id to see a single news post
+
+// each news post should include a link to delete this news post
+
+// each news post should include a link to edit this news post
+
+// GET /new_news to see a "new news post" form
+
+// the form fields are:
+// author : Text
+// title : Text
+// body : TextArea
+
+// POST /news to create a new news post i
+
+
+// GET /news/:id/edit to see a form to edit a news post identified by the :id param
+
+// the form fields are:
+// author : Text
+// title : Text
+// body : TextArea
+
+// PUT /news/:id updates a single news post identified by the :id param
+
+// DELETE /news/:id to delete a single news post identified by the :id param
 // EXPORT THIS FILE AS A MODULE
+
 module.exports.app = app;
