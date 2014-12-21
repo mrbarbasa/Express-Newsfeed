@@ -15,6 +15,7 @@ mixin renderNewsItems()
                 p #{newsItem.body}
 
 block content
+  a(id="admin-button", href="/new_news") Post News Article
   .content-block
     +renderNewsItems
 

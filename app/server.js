@@ -78,6 +78,10 @@ app.get('/', function(req, res) {
   res.render('./index', locals);
 });
 
+app.get('/new_news', function(req, res) {
+  res.render('./new_news');
+});
+
 app.post('/news', function(req, res) {
   console.log('user sent post request');
   res.send('sent post');

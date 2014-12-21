@@ -1,0 +1,12 @@
+extends ./layout.jade
+
+block content
+  //- button#share_button share
+  form(method='post',action='/news')
+    label(for='title') Title:
+    input(type='text',name='title',id='title')
+    label(for='author') Author:
+    input(type='text',name='author',id='author')        
+    label(for='body') Body:
+    input(type='textarea',name='body',id='body',cols=360,rows=25)  
+    input(type='submit',name='share',value='share')#share_button
