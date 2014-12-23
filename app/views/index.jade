@@ -11,7 +11,7 @@ mixin renderNewsItems()
               .news-image
                 img(src="http://lorempixel.com/240/78/cats/", alt="Hello News")
               .news-text
-                h3 #{newsItem.title}
+                h3: a(id="news-title", href="/news/#{newsItem._id}") #{newsItem.title}
                 p #{newsItem.body}
 
 block content
