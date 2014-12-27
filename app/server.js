@@ -38,6 +38,26 @@ var newsSchema = mongoose.Schema({
 
 var NewsItem = mongoose.model('New', newsSchema);
 
+var userSchema = mongoose.Schema({
+  username: String,
+  password: String,
+  first_name: String,
+  last_name: String,
+  email: String
+});
+
+userSchema.methods.validPassword = function (check_password) {
+  return (check_password === this.password);
+};
+
+// userSchema.path('email').validate(function (email) {
+//    var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+//    return emailRegex.test(email.text); // Assuming email has a text attribute
+// }, 'The e-mail field cannot be empty.');
+
+var User = mongoose.model('User', userSchema);
+
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function(err, user) {
@@ -173,19 +193,19 @@ app.delete('/news/:id', ensureAuthenticated, function(req, res) {
 });
 
 
-var User = {
-  findOne: function(opts, cb) {
-    var user = {
-      id: 1,
-      username: "admin",
-      password: "admin",
-      validPassword: function(password) {
-        return (password === "admin");
-      }
-    };
-    cb(null, user);
-  }
-};
+// var User = {
+//   findOne: function(opts, cb) {
+//     var user = {
+//       id: 1,
+//       username: "admin",
+//       password: "admin",
+//       validPassword: function(password) {
+//         return (password === "admin");
+//       }
+//     };
+//     cb(null, user);
+//   }
+// };
 
 function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
