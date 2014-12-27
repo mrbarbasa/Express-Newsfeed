@@ -92,11 +92,7 @@ app.get('/news/:id/edit', function(req, res) {
   });
 });
 
-// TODO: Not working, still in progress
 app.put('/news/:id', function(req, res) {
-  console.log(req.params.id);
-  console.log(req.body);
-
   NewsItem.update({
     "_id": req.params.id
   }, {
@@ -108,7 +104,20 @@ app.put('/news/:id', function(req, res) {
       throw err;
     }
     else {
-      res.send('News item was successfully updated');
+      res.redirect('/news/' + req.params.id);
+    }
+  });
+});
+
+app.delete('/news/:id', function(req, res) {
+  NewsItem.remove({
+    "_id": req.params.id
+  }, function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.redirect('/');
     }
   });
 });

@@ -10,5 +10,8 @@ block content
           h3 #{newsItem.title}
           p #{newsItem.body}
         .news-actions
-          a(id="edit-news", href="/news/#{newsItem._id}/edit") Edit News Article
-
+          a(id="edit-news", href="/news/#{newsItem._id}/edit") Edit
+          br
+          form(method='post',action='/news/#{newsItem._id}?_method=DELETE')
+            input(type="hidden",name="_method",value="DELETE")
+            input(type='submit',name='delete',value='delete')#delete_button
