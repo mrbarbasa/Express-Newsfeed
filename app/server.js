@@ -193,20 +193,6 @@ app.delete('/news/:id', ensureAuthenticated, function(req, res) {
 });
 
 
-// var User = {
-//   findOne: function(opts, cb) {
-//     var user = {
-//       id: 1,
-//       username: "admin",
-//       password: "admin",
-//       validPassword: function(password) {
-//         return (password === "admin");
-//       }
-//     };
-//     cb(null, user);
-//   }
-// };
-
 function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -214,7 +200,6 @@ function ensureAuthenticated (req, res, next) {
   // not authenticated
   res.redirect('/login');
 }
-
 
 
 /* ROUTES */
