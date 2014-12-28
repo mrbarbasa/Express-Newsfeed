@@ -48,7 +48,13 @@ var userSchema = mongoose.Schema({
 });
 
 userSchema.methods.validPassword = function (check_password) {
-  return (check_password === this.password);
+  var salt = process.env.SALT;
+  check_password += salt;
+  var shasum = crypto.createHash('sha512');
+  shasum.update(check_password);
+  var hashed_password = shasum.digest('hex');
+
+  return (hashed_password === this.password);
 };
 
 // userSchema.path('email').validate(function (email) {
