@@ -1,17 +1,20 @@
 extends ./layout.jade
 
 block content
-  .row
-    .small-12.medium-12.large-12.columns
-      .news-item
-        .news-image
-          img(src="http://lorempixel.com/240/78/cats/", alt="Hello News")
-        .news-text
-          h3 #{newsItem.title}
-          p #{newsItem.body}
-        .news-actions
-          a(id="edit-news", href="/news/#{newsItem._id}/edit") Edit
-          br
-          form(method='post',action='/news/#{newsItem._id}?_method=DELETE')
-            input(type="hidden",name="_method",value="DELETE")
-            input(type='submit',name='delete',value='delete')#delete_button
+  .content-block
+    .row
+      .small-12.medium-12.large-12.columns
+        .news-article
+          .news-title
+            h3 #{newsItem.title}
+          .news-author
+            h5 by #{newsItem.author}
+          .news-text
+            p #{newsItem.body}
+          .news-image
+            img(src="http://lorempixel.com/1000/700/cats/", alt="Hello News")
+          .news-actions.clearfix
+            a(id="edit-news", href="/news/#{newsItem._id}/edit", class='button radius small') Edit
+            form(method='post',action='/news/#{newsItem._id}?_method=DELETE')
+              input(type="hidden",name="_method",value="DELETE")
+              input(type='submit',name='delete',value='Delete', class='button radius small')#delete_button

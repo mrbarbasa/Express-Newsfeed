@@ -6041,14 +6041,36 @@ header.header-block h1#site-title {
 
 .content-block .news-item {
   margin-top: 24px; }
-  .content-block .news-item .news-image img {
-    width: 100%;
-    height: auto; }
   .content-block .news-item .news-text h3 {
     color: #2D2D2D;
     font-size: 1.1em; }
   .content-block .news-item .news-text p {
     font-size: 0.9em; }
+  .content-block .news-item .news-image img {
+    width: 100%;
+    height: auto; }
+.content-block .news-article {
+  background-color: white;
+  padding: 50px 100px;
+  margin: 30px -0.9375rem; }
+  .content-block .news-article .news-title {
+    margin-bottom: 20px; }
+  .content-block .news-article .news-actions a {
+    float: left;
+    margin-right: 20px; }
+  .content-block .news-article .news-actions form {
+    float: left; }
+  .content-block .news-article .news-author {
+    border-top: 1px solid #D5D5D5;
+    border-bottom: 1px solid #D5D5D5; }
+    .content-block .news-article .news-author h5 {
+      font-style: italic; }
+  .content-block .news-article .news-text {
+    margin: 20px 0; }
+    .content-block .news-article .news-text p {
+      font-size: 1.3em; }
+  .content-block .news-article .news-image {
+    margin-bottom: 30px; }
 
 footer.footer-block .row .columns {
   padding: 0; }
