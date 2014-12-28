@@ -6039,6 +6039,14 @@ header.header-block h1#site-title {
   padding-bottom: 10px;
   border-bottom: 1px solid #D5D5D5; }
 
+.content-block .login-block {
+  width: 300px;
+  margin: 140px auto; }
+  .content-block .login-block p.flash {
+    color: #f08a24;
+    font-family: 'Lato'; }
+  .content-block .login-block form input.login {
+    width: 100%; }
 .content-block .news-item {
   margin-top: 24px; }
   .content-block .news-item .news-text h3 {

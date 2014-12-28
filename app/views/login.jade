@@ -1,13 +1,16 @@
 extends ./layout.jade
 
 block content
-  p #{messages}
-  form(action="/login", method="post")
-    div
-      label Username:
-        input(type="text", name="username")
-      div
-        label Password:
-        input(type="password", name="password")
-      div
-        input(type="submit", value="Log In")
+  .content-block
+    .row
+      .small-12.medium-12.large-12.columns
+        .login-block
+          p.flash #{messages}
+          form(action="/login", method="post")
+            div.row
+              div.six.columns
+                input(type="text", name="username", placeholder="Username")
+              div.three.columns
+                input(type="password", name="password", placeholder="Password")
+              div.three.columns
+                input(type="submit", value="Log In", class="login button radius small")
