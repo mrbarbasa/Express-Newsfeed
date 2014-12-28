@@ -15,7 +15,14 @@ mixin renderNewsItems()
                 p #{newsItem.body}
 
 block content
-  a(id="admin-button", href="/new_news") Post News Article
-  .content-block
-    +renderNewsItems
+  .row.clearfix
+    if !user
+      a(id="login-button", href="/login", class='button radius tiny') Login
+    else
+      a(id="admin-button", href="/new_news", class='button radius tiny') Post News Article
+      a(id="logout-button", href="/logout", class='button radius tiny') Logout
+  .row
+    .content-block
+      +renderNewsItems
+
 
