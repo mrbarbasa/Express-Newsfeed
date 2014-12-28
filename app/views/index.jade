@@ -1,7 +1,7 @@
 extends ./layout.jade
 
 mixin renderNewsItems()
-  - var columnSize = 4, elementsInRow = 12/columnSize 
+  - var columnSize = 4, elementsInRow = 12/columnSize
   each _, x in newsContent
     if (x % elementsInRow === 0)
       .row
@@ -19,8 +19,8 @@ block content
     if !user
       a(id="login-button", href="/login", class='button radius tiny') Login
     else
-      a(id="admin-button", href="/new_news", class='button radius tiny') Post News Article
       a(id="logout-button", href="/logout", class='button radius tiny') Logout
+      a(id="admin-button", href="/new_news", class='button radius tiny') Post News Article
   .row
     .content-block
       +renderNewsItems

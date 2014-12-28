@@ -23,7 +23,8 @@ header.header-block {
 }
 
 #admin-button {
-  float: left;
+  float: right;
+  margin-right: 10px;
 }
 
 #login-button {
@@ -33,7 +34,6 @@ header.header-block {
 
 #logout-button {
   float: right;
-  margin-right: 10px;
 }
 
 .content-block {
@@ -57,6 +57,13 @@ header.header-block {
       input.login {
         width: 100%;
       }
+    }
+  }
+  .news-form {
+    width: 90%;
+    margin: 36px auto;
+    label {
+      font-size: 1.2em;
     }
   }
   .news-item {

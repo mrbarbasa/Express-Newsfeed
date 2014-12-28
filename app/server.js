@@ -96,6 +96,11 @@ app.post('/login',
                                    failureFlash: true })
 );
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 app.get('/', function(req, res) {
   NewsItem.find(function(err, news) {
     if(err) {
