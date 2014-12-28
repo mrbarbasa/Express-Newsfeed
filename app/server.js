@@ -7,6 +7,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var methodOverride = require('method-override');
+var crypto = require('crypto');
 var LocalStrategy = require('passport-local').Strategy;
 
 var CONNECTION_STRING = 'mongodb://dbadmin:' + process.env.DBPASS + '@ds063170.mongolab.com:63170/newsdb';
@@ -120,11 +121,19 @@ app.get('/account/:id/edit', ensureAuthenticated, function(req, res) {
 
 
 app.put('/account/:id', ensureAuthenticated, function(req, res) {
+
+  var input = req.body.password;
+  var salt = process.env.SALT;  // env var, type in on cli
+  input += salt;
+  var shasum = crypto.createHash('sha512');
+  shasum.update(input);
+  var hashed_password = shasum.digest('hex');
+
   User.update({
     "_id": req.params.id
   }, {
     "username": req.body.username,
-    "password": req.body.password,
+    "password": hashed_password,
     "email": req.body.email,
     "first_name": req.body.first_name,
     "last_name": req.body.last_name
