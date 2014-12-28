@@ -102,7 +102,8 @@ app.get('/', function(req, res) {
       throw err;
     } else {
       var locals = {
-        newsContent: news
+        newsContent: news,
+        user: req.user
       };
       res.render('./index', locals);
     }
