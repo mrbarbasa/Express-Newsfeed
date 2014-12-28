@@ -6040,16 +6040,29 @@ header.header-block h1#site-title {
   border-bottom: 1px solid #D5D5D5; }
 
 #admin-button {
-  float: left; }
+  float: right;
+  margin-right: 10px; }
 
 #login-button {
   float: right;
   margin-right: 10px; }
 
 #logout-button {
-  float: right;
-  margin-right: 10px; }
+  float: right; }
 
+.content-block .login-block {
+  width: 300px;
+  margin: 140px auto; }
+  .content-block .login-block p.flash {
+    color: #f08a24;
+    font-family: 'Lato'; }
+  .content-block .login-block form input.login {
+    width: 100%; }
+.content-block .news-form {
+  width: 90%;
+  margin: 36px auto; }
+  .content-block .news-form label {
+    font-size: 1.2em; }
 .content-block .news-item {
   margin-top: 24px; }
   .content-block .news-item .news-text h3 {

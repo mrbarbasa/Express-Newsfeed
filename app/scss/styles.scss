@@ -23,7 +23,8 @@ header.header-block {
 }
 
 #admin-button {
-  float: left;
+  float: right;
+  margin-right: 10px;
 }
 
 #login-button {
@@ -33,7 +34,6 @@ header.header-block {
 
 #logout-button {
   float: right;
-  margin-right: 10px;
 }
 
 .content-block {
@@ -41,6 +41,29 @@ header.header-block {
     // background-color: tan;
     .columns {
       // background-color: pink;
+    }
+  }
+  .login-block {
+    // background-color: yellow;
+    width: 300px;
+    margin: 140px auto;
+    p.flash {
+      // background-color: orange;
+      color: $warning-color;
+      font-family: 'Lato';
+    }
+    form {
+      // background-color: lightblue;
+      input.login {
+        width: 100%;
+      }
+    }
+  }
+  .news-form {
+    width: 90%;
+    margin: 36px auto;
+    label {
+      font-size: 1.2em;
     }
   }
   .news-item {
@@ -70,7 +93,7 @@ header.header-block {
     background-color: white;
     padding: 50px 100px;
     margin: 30px -0.9375rem;
-    
+
     .news-title {
       // background-color: orange;
       margin-bottom: 20px;
