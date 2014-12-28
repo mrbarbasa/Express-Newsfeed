@@ -1,0 +1,19 @@
+extends ../layout.jade
+
+block content
+  .content-block
+    .row
+      .small-12.medium-12.large-12.columns
+        .user-account
+          .user-username
+            p Username: #{user.username}
+          .user-password
+            p Password: #{user.password}
+          .user-email
+            p Email: #{user.email}
+          .user-first
+            p First Name: #{user.first_name}          
+          .user-last
+            p Last Name: #{user.last_name}
+          .user-actions
+            a(id="edit-user", href="/account/#{user._id}/edit", class='button radius small') Edit Account

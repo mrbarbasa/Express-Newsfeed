@@ -20,7 +20,8 @@ block content
       a(id="login-button", href="/login", class='button radius tiny') Login
     else
       a(id="logout-button", href="/logout", class='button radius tiny') Logout
-      a(id="admin-button", href="/new_news", class='button radius tiny') Post News Article
+      a(id="post-button", href="/new_news", class='button radius tiny') Post News Article
+      a(id="account-link", href="/account") #{user.username}
   .row
     .content-block
       +renderNewsItems

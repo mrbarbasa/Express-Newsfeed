@@ -6039,7 +6039,7 @@ header.header-block h1#site-title {
   padding-bottom: 10px;
   border-bottom: 1px solid #D5D5D5; }
 
-#admin-button {
+#post-button {
   float: right;
   margin-right: 10px; }
 
@@ -6049,6 +6049,10 @@ header.header-block h1#site-title {
 
 #logout-button {
   float: right; }
+
+#account-link {
+  float: right;
+  margin-right: 10px; }
 
 .content-block .login-block {
   width: 300px;
