@@ -17,9 +17,10 @@ mixin renderNewsItems()
 block content
   .row.clearfix
     if !user
-      a(id="login-button", href="/login", class='button radius tiny') Login
+      a(id="signup-button", href="/signup", class='button radius tiny') Sign up
+      a(id="login-button", href="/login", class='button radius tiny') Log in
     else
-      a(id="logout-button", href="/logout", class='button radius tiny') Logout
+      a(id="logout-button", href="/logout", class='button radius tiny') Log out
       a(id="post-button", href="/new_news", class='button radius tiny') Post News Article
       a(id="account-link", href="/account") #{user.username}
   .row

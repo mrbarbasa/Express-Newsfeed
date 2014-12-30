@@ -7,10 +7,6 @@ block content
         .login-block
           p.flash #{messages}
           form(action="/login", method="post")
-            div.row
-              div.six.columns
-                input(type="text", name="username", placeholder="Username")
-              div.three.columns
-                input(type="password", name="password", placeholder="Password")
-              div.three.columns
-                input(type="submit", value="Log In", class="login button radius small")
+            input(type="text", name="username", placeholder="Username")
+            input(type="password", name="password", placeholder="Password")
+            input(type="submit", value="Log in", class="login button radius small")

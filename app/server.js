@@ -47,17 +47,11 @@ var userSchema = mongoose.Schema({
   email: String
 });
 
-userSchema.methods.validPassword = function (check_password) {
-  var salt = process.env.SALT;
-  check_password += salt;
-  var shasum = crypto.createHash('sha512');
-  shasum.update(check_password);
-  var hashed_password = shasum.digest('hex');
-
-  return (hashed_password === this.password);
+userSchema.methods.validPassword = function(checkPassword) {
+  return (hashPassword(checkPassword) === this.password);
 };
 
-// userSchema.path('email').validate(function (email) {
+// userSchema.path('email').validate(function(email) {
 //    var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 //    return emailRegex.test(email.text); // Assuming email has a text attribute
 // }, 'The e-mail field cannot be empty.');
@@ -85,14 +79,52 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-  User.findById(user._id, function (err, user) {
+  User.findById(user._id, function(err, user) {
     done(null, user);
   });
 });
 
 // ROUTES
 
-app.get('/login', function (req, res) {
+app.get('/signup', function(req, res) {
+  var locals = {
+    messages: req.flash('error')
+  };
+  res.render('signup', locals);
+});
+
+app.post('/signup', function(req, res) {
+  if (req.body.password !== req.body.password_confirm) {
+    var locals = {
+      messages: "Password confirmation does not match password."
+    };
+    return res.render('signup', locals);
+  }
+
+  var newUser = User({
+    "username": req.body.username,
+    "password": hashPassword(req.body.password),
+    "first_name": req.body.first_name,
+    "last_name": req.body.last_name,
+    "email": req.body.email
+  });
+
+  newUser.save(function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      req.login(newUser, function(err) {
+        if (err) {
+          throw err;
+        }
+        return res.redirect('/');
+      });
+    }
+  });
+});
+
+app.get('/login', function(req, res) {
   var locals = {
     messages: req.flash('error')
   };
@@ -127,19 +159,11 @@ app.get('/account/:id/edit', ensureAuthenticated, function(req, res) {
 
 
 app.put('/account/:id', ensureAuthenticated, function(req, res) {
-
-  var input = req.body.password;
-  var salt = process.env.SALT;  // env var, type in on cli
-  input += salt;
-  var shasum = crypto.createHash('sha512');
-  shasum.update(input);
-  var hashed_password = shasum.digest('hex');
-
   User.update({
     "_id": req.params.id
   }, {
     "username": req.body.username,
-    "password": hashed_password,
+    "password": hashPassword(req.body.password),
     "email": req.body.email,
     "first_name": req.body.first_name,
     "last_name": req.body.last_name
@@ -252,8 +276,14 @@ app.delete('/news/:id', ensureAuthenticated, function(req, res) {
   });
 });
 
+function hashPassword(input) {
+  input += process.env.SALT;
+  var shasum = crypto.createHash('sha512');
+  shasum.update(input);
+  return shasum.digest('hex');
+}
 
-function ensureAuthenticated (req, res, next) {
+function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }

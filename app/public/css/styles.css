@@ -6039,20 +6039,12 @@ header.header-block h1#site-title {
   padding-bottom: 10px;
   border-bottom: 1px solid #D5D5D5; }
 
-#post-button {
-  float: right;
-  margin-right: 10px; }
-
-#login-button {
+#signup-button, #login-button, #account-link, #post-button {
   float: right;
   margin-right: 10px; }
 
 #logout-button {
   float: right; }
-
-#account-link {
-  float: right;
-  margin-right: 10px; }
 
 .content-block .login-block {
   width: 300px;
