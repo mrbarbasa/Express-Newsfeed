@@ -6058,6 +6058,9 @@ header.header-block h1#site-title a:hover {
     width: 95%;
     margin: auto; } }
 
+#account-link {
+  font-style: italic; }
+
 #signup-button, #login-button, #account-link, #post-button {
   float: right;
   margin-right: 10px; }
