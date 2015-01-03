@@ -21,13 +21,16 @@ header.header-block {
     border-bottom: 1px solid #D5D5D5;
   }
   h1#site-title a:link {
+    text-decoration: none;
     color: black;
   }
   h1#site-title a:visited {
+    text-decoration: none;
     color: black;
   }
   h1#site-title a:hover {
-    color: blue;
+    text-decoration: none;
+    color: #008CBA;
   }
 }
 
