@@ -20,6 +20,15 @@ header.header-block {
     padding-bottom: 10px;
     border-bottom: 1px solid #D5D5D5;
   }
+  h1#site-title a:link {
+    color: black;
+  }
+  h1#site-title a:visited {
+    color: black;
+  }
+  h1#site-title a:hover {
+    color: blue;
+  }
 }
 
 #signup-button, #login-button, #account-link, #post-button {

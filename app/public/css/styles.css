@@ -6038,6 +6038,12 @@ header.header-block h1#site-title {
   padding-top: 16px;
   padding-bottom: 10px;
   border-bottom: 1px solid #D5D5D5; }
+header.header-block h1#site-title a:link {
+  color: black; }
+header.header-block h1#site-title a:visited {
+  color: black; }
+header.header-block h1#site-title a:hover {
+  color: blue; }
 
 #signup-button, #login-button, #account-link, #post-button {
   float: right;
