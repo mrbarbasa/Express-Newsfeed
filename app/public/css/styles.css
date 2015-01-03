@@ -6030,6 +6030,11 @@ body {
   background-image: url("/img/bg.png");
   background-repeat: repeat-y; }
 
+@media only screen and (max-width: 64em) {
+  header.header-block .row {
+    width: 95%;
+    margin: auto; }
+ }
 header.header-block .row .columns {
   padding: 0; }
 header.header-block h1#site-title {
@@ -6048,13 +6053,24 @@ header.header-block h1#site-title a:hover {
   text-decoration: none;
   color: #008CBA; }
 
+@media only screen and (max-width: 64em) {
+  .row.clearfix {
+    width: 95%;
+    margin: auto; } }
+
 #signup-button, #login-button, #account-link, #post-button {
   float: right;
   margin-right: 10px; }
 
 #logout-button {
-  float: right; }
+  float: right;
+  margin-right: 10px; }
 
+@media only screen and (max-width: 64em) {
+  .content-block .row {
+    width: 95%;
+    margin: auto; }
+ }
 .content-block .login-block {
   width: 300px;
   margin: 140px auto; }
@@ -6101,6 +6117,11 @@ header.header-block h1#site-title a:hover {
   .content-block .news-article .news-image {
     margin-bottom: 30px; }
 
+@media only screen and (max-width: 64em) {
+  footer.footer-block .row {
+    width: 95%;
+    margin: auto; }
+ }
 footer.footer-block .row .columns {
   padding: 0; }
 footer.footer-block p {
