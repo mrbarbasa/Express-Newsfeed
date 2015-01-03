@@ -6028,7 +6028,7 @@ th.hide-for-touch {
 
 body {
   background-image: url("/img/bg.png");
-  background-repeat: repeat-y; }
+  background-repeat: repeat; }
 
 @media only screen and (max-width: 64em) {
   header.header-block .row {
