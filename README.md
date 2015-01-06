@@ -6,7 +6,7 @@ Express-Newsfeed
 
 1. Clone this repo
 2. Go to the root directory and run `npm i` and `bower i`
-3. Change into the `app` directory and run the following command from cryptobin (ask us for the cryptobin password): https://cryptobin.org/u2b4x093
+3. Change into the `app` directory and run the following command from cryptobin (ask us for the cryptobin password): https://cryptobin.org/r5f28793
 
 ---
 
