@@ -7,10 +7,15 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var methodOverride = require('method-override');
-var crypto = require('crypto');
 var LocalStrategy = require('passport-local').Strategy;
 
+// MODELS
+var NewsItem = require('./models/news.js');
+var User = require('./models/user.js');
+
+// DB CONNECTION
 var CONNECTION_STRING = 'mongodb://dbadmin:' + process.env.DBPASS + '@ds063170.mongolab.com:63170/newsdb';
+mongoose.connect(CONNECTION_STRING);
 
 // MIDDLEWARE
 app.use(express.static('./public'));
@@ -27,37 +32,6 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
-// MongoLab CONNECTION_STRING
-mongoose.connect(CONNECTION_STRING);
-
-var newsSchema = mongoose.Schema({
-  title: String,
-  author: String,
-  body: String
-});
-
-var NewsItem = mongoose.model('New', newsSchema);
-
-var userSchema = mongoose.Schema({
-  username: String,
-  password: String,
-  first_name: String,
-  last_name: String,
-  email: String
-});
-
-userSchema.methods.validPassword = function(checkPassword) {
-  return (hashPassword(checkPassword) === this.password);
-};
-
-// userSchema.path('email').validate(function(email) {
-//    var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-//    return emailRegex.test(email.text); // Assuming email has a text attribute
-// }, 'The e-mail field cannot be empty.');
-
-var User = mongoose.model('User', userSchema);
-
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -103,7 +77,7 @@ app.post('/signup', function(req, res) {
 
   var newUser = User({
     "username": req.body.username,
-    "password": hashPassword(req.body.password),
+    "password": User.hashPassword(req.body.password),
     "first_name": req.body.first_name,
     "last_name": req.body.last_name,
     "email": req.body.email
@@ -163,7 +137,7 @@ app.put('/account/:id', ensureAuthenticated, function(req, res) {
     "_id": req.params.id
   }, {
     "username": req.body.username,
-    "password": hashPassword(req.body.password),
+    "password": User.hashPassword(req.body.password),
     "email": req.body.email,
     "first_name": req.body.first_name,
     "last_name": req.body.last_name
@@ -176,8 +150,6 @@ app.put('/account/:id', ensureAuthenticated, function(req, res) {
     }
   });
 });
-
-
 
 app.get('/', function(req, res) {
   NewsItem.find(function(err, news) {
@@ -276,18 +248,11 @@ app.delete('/news/:id', ensureAuthenticated, function(req, res) {
   });
 });
 
-function hashPassword(input) {
-  input += process.env.SALT;
-  var shasum = crypto.createHash('sha512');
-  shasum.update(input);
-  return shasum.digest('hex');
-}
-
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  // not authenticated
+  // Not authenticated
   res.redirect('/login');
 }
 
