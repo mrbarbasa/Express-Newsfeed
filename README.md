@@ -1,6 +1,15 @@
 Express-Newsfeed
 ================
 
+---
+## Installation
+
+1. Clone this repo
+2. Go to the root directory and run `npm i` and `bower i`
+3. Change into the `app` directory and run the following command from cryptobin (ask us for the cryptobin password): https://cryptobin.org/r5f28793
+
+---
+
 MEH stack - Mongo Express and HTML5 
 
 Use the MEH stack plus *almost* any other library or templating engines you want to fulfill the requirements.  
