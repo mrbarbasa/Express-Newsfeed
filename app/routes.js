@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var NewsItem = require('./models/news');
 var User = require('./models/user');
+var account = require('./controllers/account');
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -11,39 +12,11 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-app.get('/account', ensureAuthenticated, function(req, res) {
-  // console.log(req.user);
-  var locals = {
-    user: req.user
-  };
-  res.render('account/show', locals);
-});
+app.get('/account', ensureAuthenticated, account.show);
 
-app.get('/account/:id/edit', ensureAuthenticated, function(req, res) {
-  var locals = {
-    user: req.user
-  };
-  res.render('account/edit', locals);
-});
+app.get('/account/:id/edit', ensureAuthenticated, account.edit);
 
-app.put('/account/:id', ensureAuthenticated, function(req, res) {
-  User.update({
-    "_id": req.params.id
-  }, {
-    "username": req.body.username,
-    "password": User.hashPassword(req.body.password),
-    "email": req.body.email,
-    "first_name": req.body.first_name,
-    "last_name": req.body.last_name
-  }, function(err) {
-    if (err) {
-      throw err;
-    }
-    else {
-      res.redirect('/account');
-    }
-  });
-});
+app.put('/account/:id', ensureAuthenticated, account.update);
 
 app.get('/news/:id', function(req, res) {
   NewsItem.find({

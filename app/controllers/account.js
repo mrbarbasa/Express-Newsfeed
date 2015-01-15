@@ -1,21 +1,21 @@
-// TODO
 var User = require('./models/user');
 
-app.get('/account', ensureAuthenticated, function(req, res) {
+exports.show = function(req, res) {
+  // console.log(req.user);
   var locals = {
     user: req.user
   };
   res.render('account/show', locals);
-});
+};
 
-app.get('/account/:id/edit', ensureAuthenticated, function(req, res) {
+exports.edit = function(req, res) {
   var locals = {
     user: req.user
   };
   res.render('account/edit', locals);
-});
+};
 
-app.put('/account/:id', ensureAuthenticated, function(req, res) {
+exports.update = function(req, res) {
   User.update({
     "_id": req.params.id
   }, {
@@ -32,4 +32,4 @@ app.put('/account/:id', ensureAuthenticated, function(req, res) {
       res.redirect('/account');
     }
   });
-});
+};
