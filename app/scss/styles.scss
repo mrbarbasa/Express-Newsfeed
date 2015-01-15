@@ -4,10 +4,17 @@
 
 body {
   background-image: url("/img/bg.png");
-  background-repeat: repeat-y;
+  background-repeat: repeat;
 }
 
 header.header-block {
+  @media #{$medium-down} {
+    .row {
+      // background-color: pink;
+      width: 95%;
+      margin: auto;
+    }
+  }
   // background-color: yellow;
   .row .columns {
     padding: 0;
@@ -20,25 +27,83 @@ header.header-block {
     padding-bottom: 10px;
     border-bottom: 1px solid #D5D5D5;
   }
+  h1#site-title a:link {
+    text-decoration: none;
+    color: black;
+  }
+  h1#site-title a:visited {
+    text-decoration: none;
+    color: black;
+  }
+  h1#site-title a:hover {
+    text-decoration: none;
+    color: #008CBA;
+  }
+}
+
+.row.clearfix {
+  // margin-right: 10px;
+  @media #{$medium-down} {
+      // background-color: pink;
+      width: 95%;
+      margin: auto;
+  }
+}
+
+#account-link {
+  font-style: italic;
+}
+
+#signup-button, #login-button, #account-link, #post-button {
+  float: right;
+  margin-right: 10px;
+}
+
+#logout-button {
+  float: right;
+  margin-right: 10px;
 }
 
 .content-block {
+  @media #{$medium-down} {
+    .row {
+      // background-color: pink;
+      width: 95%;
+      margin: auto;
+    }
+  }
   .row {
     // background-color: tan;
     .columns {
       // background-color: pink;
     }
   }
+  .login-block {
+    // background-color: yellow;
+    width: 300px;
+    margin: 140px auto;
+    p.flash {
+      // background-color: orange;
+      color: $warning-color;
+      font-family: 'Lato';
+    }
+    form {
+      // background-color: lightblue;
+      input.login {
+        width: 100%;
+      }
+    }
+  }
+  .news-form {
+    width: 90%;
+    margin: 36px auto;
+    label {
+      font-size: 1.2em;
+    }
+  }
   .news-item {
     // background-color: lightblue;
     margin-top: 24px;
-    .news-image {
-      // background-color: yellow;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
     .news-text {
       // background-color: lightgreen;
       h3 {
@@ -49,10 +114,68 @@ header.header-block {
         font-size: 0.9em;
       }
     }
+    .news-image {
+      // background-color: yellow;
+      img {
+        // background-image: url("http://lorempixel.com/1000/700/cats/");
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .news-article {
+    background-color: white;
+    padding: 50px 100px;
+    margin: 30px -0.9375rem;
+
+    .news-title {
+      // background-color: orange;
+      margin-bottom: 20px;
+    }
+
+    .news-actions {
+      a {
+        float: left;
+        margin-right: 20px;
+      }
+      form {
+        float: left;
+      }
+    }
+
+    .news-author {
+      border-top: 1px solid #D5D5D5;
+      border-bottom: 1px solid #D5D5D5;
+      h5 {
+        font-style: italic;
+        // background-color: blue;
+
+      }
+    }
+
+    .news-text {
+      // background-color: orange;
+      margin: 20px 0;
+      p {
+        font-size: 1.3em;
+      }
+    }
+
+    .news-image {
+      margin-bottom: 30px;
+    }
   }
 }
 
 footer.footer-block {
+  @media #{$medium-down} {
+    .row {
+      // background-color: pink;
+      width: 95%;
+      margin: auto;
+    }
+  }
   // background-color: yellow;
   .row .columns {
     padding: 0;

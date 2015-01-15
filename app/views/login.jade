@@ -1,0 +1,12 @@
+extends ./layout.jade
+
+block content
+  .content-block
+    .row
+      .small-12.medium-12.large-12.columns
+        .login-block
+          p.flash #{messages}
+          form(action="/login", method="post")
+            input(type="text", name="username", placeholder="Username")
+            input(type="password", name="password", placeholder="Password")
+            input(type="submit", value="Log in", class="login button radius small")

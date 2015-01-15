@@ -1,7 +1,7 @@
 extends ./layout.jade
 
 mixin renderNewsItems()
-  - var columnSize = 4, elementsInRow = 12/columnSize 
+  - var columnSize = 4, elementsInRow = 12/columnSize
   each _, x in newsContent
     if (x % elementsInRow === 0)
       .row
@@ -11,11 +11,20 @@ mixin renderNewsItems()
               .news-image
                 img(src="http://lorempixel.com/240/78/cats/", alt="Hello News")
               .news-text
-                h3 #{newsItem.title}
+                h3: a(id="news-title", href="/news/#{newsItem._id}") #{newsItem.title}
                 p #{newsItem.body}
 
 block content
-  a(id="admin-button", href="/new_news") Post News Article
-  .content-block
-    +renderNewsItems
+  .row.clearfix
+    if !user
+      a(id="signup-button", href="/signup", class='button radius tiny') Sign up
+      a(id="login-button", href="/login", class='button radius tiny') Log in
+    else
+      a(id="logout-button", href="/logout", class='button radius tiny') Log out
+      a(id="post-button", href="/new_news", class='button radius tiny') Post News Article
+      a(id="account-link", href="/account") #{user.username}
+  .row
+    .content-block
+      +renderNewsItems
+
 

@@ -1,8 +1,14 @@
 // INIT AND LIBRARIES
 var express = require('express');
 var app = express();
+var flash = require('connect-flash');
+var passport = require('passport');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var methodOverride = require('method-override');
+var crypto = require('crypto');
+var LocalStrategy = require('passport-local').Strategy;
 
 var CONNECTION_STRING = 'mongodb://dbadmin:' + process.env.DBPASS + '@ds063170.mongolab.com:63170/newsdb';
 
@@ -10,7 +16,17 @@ var CONNECTION_STRING = 'mongodb://dbadmin:' + process.env.DBPASS + '@ds063170.m
 app.use(express.static('./public'));
 app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({ extended: true }));
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
 
+app.use(session({
+  secret: 'The Newsfeed Express',  // ??
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // MongoLab CONNECTION_STRING
 mongoose.connect(CONNECTION_STRING);
@@ -23,101 +39,256 @@ var newsSchema = mongoose.Schema({
 
 var NewsItem = mongoose.model('New', newsSchema);
 
-// ROUTES
-app.get('/', function(req, res) {
-  var locals = {
-    newsContent: [
-      {
-        "author": "Marc Canter",
-        "title": "The Internet Of Things Is Not A Shiny New Toy",
-        "body": "The Internet of Things is the latest, greatest new buzzword du jour and every major technology company, industrial manufacturer, big retailer and health industry player has declared the IoT to be the next big thing. Each of these industries sees a way of taking advantage of tiny low-power intelligent devices or sensors and they’ve baked the IoT into their future product strategies."
-      },
-      {
-        "author": "John Biggs",
-        "title": "Hands On With The Blackberry Classic",
-        "body": "It’s been a long time coming: Blackberry’s return to its roots. Rather than chasing the pack, Blackberry has brought back exactly what its fans have been wanting in a package that is usable, fun, and solid. But can it save the company? I’m a fan of the $450 Classic and will post a full review on Monday but until then I’ve prepared a brief hands on."
-      },
-      {
-        "author": "Alison Derbenwick Miller",
-        "title": "Transforming The Conversation On Women In Computer Science",
-        "body": "Barbie and Mattel made news recently in the world of computer science. While initial reaction to Mattel’sBarbie “I Can Be a Computer Engineer” book focused on all-too-common and inaccurate stereotypes, conversation that has developed around the book is actually helping to shine the spotlight on two very important issues."
-      },
-      {
-        "author": "Anne Altman",
-        "title": "How Mobile And Social Feeds Government’s Appetite For Innovation",
-        "body": "Editor’s note: Anne Altman is the general manager of IBM U.S. Federal and Government Industries. Applications that simply deliver information can be useful, but government agencies are now pushing user engagement to new heights."
-      },
-      {
-        "author": "Travis Bernard",
-        "title": "11 Stories You Don’t Want To Miss This Week",
-        "body": "From the Sony hack coverage to Instagram being valued at $35 billion, here are the top stories from 12/13-12/19. 1. Sony was hacked. Sony cancels the theatrical release of The Interview after threats from hackers. The FBI blames North Korea for the hack."
-      },
-      {
-        "author": "Frederic Lardinois",
-        "title": "North Korea On Sony Hack: It Wasn’t Us",
-        "body": "Here is the latest twist in the ongoing Sony hacking story: after the FBI alleged that North Korea was indeed behind the attack on Sony, North Korea today categorically denied having anything to do with it. According to a BBC report, North Korea’s foreign ministry went as far threatening “grave consequences” and demanding a joint investigation into the allegations."
-      },
-      {
-        "author": "Natasha Lomas",
-        "title": "Stichy Makes It Easier For Groups To Curate And Share Mobile Media",
-        "body": "Rumr Inc, a mobile messaging focused startup which last year raised an $800,000 seed, led by Khosla Ventures‘ Ben Ling, to fund a series of projects, has now launched its third app — called Stichy — this one focused on sharing multimedia content within groups."
-      },
-      {
-        "author": "Jon Evans",
-        "title": "Why Is Yahoo Still So Bad At The Basics?",
-        "body": "I’m reluctant to cite what I’m about to cite. It’s scathing. It’s scurrilous. It’s caustic criticism that seems often overblown and, in some cases, deliberately devoid of context."
-      },
-      {
-        "author": "John Biggs",
-        "title": "Reddit Announces RedditNotes, A Way To Share Equity With Readers",
-        "body": "Reddit, the world’s favorite repository for funny and/or pornographic images (and wide-ranging discussions on almost any topic), has announced a RedditNotes initiative, a method to give equity to the site’s readers using a lottery method."
-      }
-    ]
-  };
-
-  res.render('./index', locals);
+var userSchema = mongoose.Schema({
+  username: String,
+  password: String,
+  first_name: String,
+  last_name: String,
+  email: String
 });
 
-app.get('/new_news', function(req, res) {
+userSchema.methods.validPassword = function(checkPassword) {
+  return (hashPassword(checkPassword) === this.password);
+};
+
+// userSchema.path('email').validate(function(email) {
+//    var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+//    return emailRegex.test(email.text); // Assuming email has a text attribute
+// }, 'The e-mail field cannot be empty.');
+
+var User = mongoose.model('User', userSchema);
+
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  User.findById(user._id, function(err, user) {
+    done(null, user);
+  });
+});
+
+// ROUTES
+
+app.get('/signup', function(req, res) {
+  var locals = {
+    messages: req.flash('error')
+  };
+  res.render('signup', locals);
+});
+
+app.post('/signup', function(req, res) {
+  if (req.body.password !== req.body.password_confirm) {
+    var locals = {
+      messages: "Password confirmation does not match password."
+    };
+    return res.render('signup', locals);
+  }
+
+  var newUser = User({
+    "username": req.body.username,
+    "password": hashPassword(req.body.password),
+    "first_name": req.body.first_name,
+    "last_name": req.body.last_name,
+    "email": req.body.email
+  });
+
+  newUser.save(function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      req.login(newUser, function(err) {
+        if (err) {
+          throw err;
+        }
+        return res.redirect('/');
+      });
+    }
+  });
+});
+
+app.get('/login', function(req, res) {
+  var locals = {
+    messages: req.flash('error')
+  };
+  res.render('login', locals);
+});
+
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true })
+);
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+app.get('/account', ensureAuthenticated, function(req, res) {
+  // console.log(req.user);
+  var locals = {
+    user: req.user
+  };
+  res.render('account/show', locals);
+});
+
+app.get('/account/:id/edit', ensureAuthenticated, function(req, res) {
+  var locals = {
+    user: req.user
+  };
+  res.render('account/edit', locals);
+});
+
+
+app.put('/account/:id', ensureAuthenticated, function(req, res) {
+  User.update({
+    "_id": req.params.id
+  }, {
+    "username": req.body.username,
+    "password": hashPassword(req.body.password),
+    "email": req.body.email,
+    "first_name": req.body.first_name,
+    "last_name": req.body.last_name
+  }, function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.redirect('/account');
+    }
+  });
+});
+
+
+
+app.get('/', function(req, res) {
+  NewsItem.find(function(err, news) {
+    if(err) {
+      throw err;
+    } else {
+      var locals = {
+        newsContent: news,
+        user: req.user
+      };
+      res.render('./index', locals);
+    }
+  });
+});
+
+app.get('/news/:id', function(req, res) {
+  NewsItem.find({
+    "_id": req.params.id
+  }, function(err, news) {
+    if (err) {
+      throw err;
+    }
+    else {
+      var locals = {
+        newsItem: news[0]
+      };
+      res.render('./news', locals);
+    }
+  });
+});
+
+app.get('/new_news', ensureAuthenticated, function(req, res) {
   res.render('./new_news');
 });
 
-app.post('/news', function(req, res) {
-  console.log('user sent post request');
-  res.send('sent post');
+app.post('/news', ensureAuthenticated, function(req, res) {
+  var news = NewsItem({
+    "title": req.body.title,
+    "author": req.body.author,
+    "body": req.body.body
+  });
+
+  news.save(function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.redirect('/'); // Can't pass locals in to redirect
+    }
+  });
 });
 
-/* ROUTES */
-/* ====== */
+app.get('/news/:id/edit', ensureAuthenticated, function(req, res) {
+  NewsItem.find({
+    "_id": req.params.id
+  }, function(err, news) {
+    if (err) {
+      throw err;
+    }
+    else {
+      var locals = {
+        newsItem: news[0]
+      };
+      res.render('./edit_news', locals);
+    }
+  });
+});
 
-// GET / to view a list of news post entries
+app.put('/news/:id', ensureAuthenticated, function(req, res) {
+  NewsItem.update({
+    "_id": req.params.id
+  }, {
+    "title": req.body.title,
+    "author": req.body.author,
+    "body": req.body.body
+  }, function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.redirect('/news/' + req.params.id);
+    }
+  });
+});
 
-// GET /news/:id to see a single news post
+app.delete('/news/:id', ensureAuthenticated, function(req, res) {
+  NewsItem.remove({
+    "_id": req.params.id
+  }, function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.redirect('/');
+    }
+  });
+});
 
-// each news post should include a link to delete this news post
+function hashPassword(input) {
+  input += process.env.SALT;
+  var shasum = crypto.createHash('sha512');
+  shasum.update(input);
+  return shasum.digest('hex');
+}
 
-// each news post should include a link to edit this news post
-
-// GET /new_news to see a "new news post" form
-
-// the form fields are:
-// author : Text
-// title : Text
-// body : TextArea
-
-// POST /news to create a new news post i
-
-
-// GET /news/:id/edit to see a form to edit a news post identified by the :id param
-
-// the form fields are:
-// author : Text
-// title : Text
-// body : TextArea
-
-// PUT /news/:id updates a single news post identified by the :id param
-
-// DELETE /news/:id to delete a single news post identified by the :id param
-// EXPORT THIS FILE AS A MODULE
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  // not authenticated
+  res.redirect('/login');
+}
 
 module.exports.app = app;

@@ -1,55 +1,42 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\margl1440\margr1440\vieww15880\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+mrbarbasa Forked from DevLeague, I Forked from mrbarbasa, and mrbarbasa was updated. 
 
-\f0\fs34 \cf0 mrbarbasa Forked from DevLeague, I Forked from mrbarbasa, and mrbarbasa was updated. \
-Here\'92s is how to set-up to pull the updates:\
-=================================\
-git remote add
-\fs24  
-\fs32 mrbarbasa_origin
-\fs34  git@github.com:mrbarbasa/Express-Newsfeed.git\
-git checkout -b mrbarbasa_master\
-git pull mrbarbasa_origin master\
-git checkout master (do twice)\
-git checkout master\
-git merge mrbarbasa_master\
-git push origin master\
-\
-Reminder:\
-========\
-be in master branch when checking out\
-master\
-	layout (mb)\
-	db (jh)\
-\
-commit and merge your branch\
-========================\
-while working in your branch (ex. $ git checkout db)\'85\
-1) get clean and get\
-2) git push origin master\
-3) git checkout master\
-4) git merge db\
-5) gst\
-6) git push origin master\
-7) return to your working branch to continue working\
-	git checkout db\
-\
-\
-mrbarbasa can pull updates from DevLeague to her computer:\
-================================================\
-1) get clean\
-	gst\
-2) create new remote\
-	git remote add mrbarbasa_origin https://\'85\
-3) fetch remote branches (to Marifel\'92s computer)\
-	git fetch mrbarbasa_origin\
-4) create tracking branch\
-	git branch \'97track mrbarbasa_master mrbarbasa_origin/master\
-\
-\
-\
-\
-}
+Here's is how to set-up to pull the updates:
+=================================
+git remote add mrbarbasa_origin git@github.com:mrbarbasa/Express-Newsfeed.git
+git checkout -b mrbarbasa_master
+git pull mrbarbasa_origin master
+git checkout master (do twice)
+git checkout master
+git merge mrbarbasa_master
+git push origin master
+
+Reminder:
+========
+be in master branch when checking out
+master
+	layout (mb)
+	db (jh)
+
+commit and merge your branch
+============================
+while working in your branch (ex. $ git checkout db)
+1) get clean and get
+2) git push origin master
+3) git checkout master
+4) git merge db
+5) gst
+6) git push origin master
+7) return to your working branch to continue working
+	git checkout db
+
+
+mrbarbasa can pull updates from DevLeague to her computer:
+==========================================================
+1) get clean
+	gst
+2) create new remote
+	git remote add mrbarbasa_origin https://...
+3) fetch remote branches (to Marifel's computer)
+	git fetch mrbarbasa_origin
+4) create tracking branch
+	git branch --track mrbarbasa_master mrbarbasa_origin/master
