@@ -50,6 +50,10 @@ header.header-block {
   }
 }
 
+#account-link {
+  font-style: italic;
+}
+
 #signup-button, #login-button, #account-link, #post-button {
   float: right;
   margin-right: 10px;
@@ -58,10 +62,6 @@ header.header-block {
 #logout-button {
   float: right;
   margin-right: 10px;
-  // @media #{$medium-down} {
-  //     // background-color: pink;
-  //     margin-right: 25px;
-  // }
 }
 
 .content-block {
