@@ -13,11 +13,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var NewsItem = require('./models/news');
 var User = require('./models/user');
 
-// ROUTES
-var routes = require('./routes');
-// var account = require('./controllers/account');
-// var news = ('./controllers/news');
-
 // DB CONNECTION
 var CONNECTION_STRING = 'mongodb://dbadmin:' + process.env.DBPASS + '@ds063170.mongolab.com:63170/newsdb';
 mongoose.connect(CONNECTION_STRING);
@@ -64,6 +59,7 @@ passport.deserializeUser(function(user, done) {
 });
 
 // ROUTES
+require('./routes')(app);
 
 app.get('/signup', function(req, res) {
   var locals = {
