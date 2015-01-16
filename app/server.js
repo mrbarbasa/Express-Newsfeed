@@ -8,14 +8,14 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var methodOverride = require('method-override');
 var LocalStrategy = require('passport-local').Strategy;
+var config = require('./config');
 
 // MODELS
 var NewsItem = require('./models/news');
 var User = require('./models/user');
 
 // DB CONNECTION
-var CONNECTION_STRING = 'mongodb://dbadmin:' + process.env.DBPASS + '@ds063170.mongolab.com:63170/newsdb';
-mongoose.connect(CONNECTION_STRING);
+mongoose.connect(config.database_uri);
 
 // MIDDLEWARE
 app.use(express.static('./public'));
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 app.use(session({
-  secret: 'The Newsfeed Express',  // ??
+  secret: config.secret,
   resave: false,
   saveUninitialized: true
 }));
