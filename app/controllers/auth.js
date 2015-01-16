@@ -4,7 +4,7 @@ exports.signup = function(req, res) {
   var locals = {
     messages: req.flash('error')
   };
-  res.render('signup', locals);
+  res.render('./auth/signup', locals);
 };
 
 exports.create = function(req, res) {
@@ -12,7 +12,7 @@ exports.create = function(req, res) {
     var locals = {
       messages: "Password confirmation does not match password."
     };
-    return res.render('signup', locals);
+    return res.render('./auth/signup', locals);
   }
 
   var newUser = User({
@@ -42,7 +42,7 @@ exports.login = function(req, res) {
   var locals = {
     messages: req.flash('error')
   };
-  res.render('login', locals);
+  res.render('./auth/login', locals);
 };
 
 exports.authenticate = function(passport) {

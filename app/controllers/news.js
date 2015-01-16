@@ -25,13 +25,13 @@ exports.show = function(req, res) {
       var locals = {
         newsItem: news[0]
       };
-      res.render('./news', locals);
+      res.render('./news/show', locals);
     }
   });
 };
 
 exports.showNew = function(req, res) {
-  res.render('./new_news');
+  res.render('./news/new');
 };
 
 exports.create = function(req, res) {
@@ -62,7 +62,7 @@ exports.edit = function(req, res) {
       var locals = {
         newsItem: news[0]
       };
-      res.render('./edit_news', locals);
+      res.render('./news/edit', locals);
     }
   });
 };
