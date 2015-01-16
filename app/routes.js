@@ -1,8 +1,6 @@
-var NewsItem = require('./models/news');
-var User = require('./models/user');
 var auth = require('./controllers/auth');
 var account = require('./controllers/account');
-var news = require('./controllers/news');
+var article = require('./controllers/article');
 
 module.exports = function(app, passport) {
 
@@ -32,20 +30,20 @@ module.exports = function(app, passport) {
 
   app.put('/account/:id', ensureAuthenticated, account.update);
 
-  // NEWS ROUTES
-  app.get('/', news.index);
+  // ARTICLE ROUTES
+  app.get('/', article.index);
 
-  app.get('/news/:id', news.show);
+  app.get('/articles/:id', article.show);
 
-  app.get('/new_news', ensureAuthenticated, news.showNew);
+  app.get('/article/new', ensureAuthenticated, article.add);
 
-  app.post('/news', ensureAuthenticated, news.create);
+  app.post('/articles', ensureAuthenticated, article.create);
 
-  app.get('/news/:id/edit', news.edit);
+  app.get('/articles/:id/edit', ensureAuthenticated, article.edit);
 
-  app.put('/news/:id', news.update);
+  app.put('/articles/:id', ensureAuthenticated, article.update);
 
-  app.delete('/news/:id', news.destroy);
+  app.delete('/articles/:id', ensureAuthenticated, article.destroy);
 
   return app;
 

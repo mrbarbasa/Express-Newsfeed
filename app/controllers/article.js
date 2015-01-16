@@ -1,12 +1,12 @@
-var NewsItem = require('../models/news');
+var Article = require('../models/article');
 
 exports.index = function(req, res) {
-  NewsItem.find(function(err, news) {
+  Article.find(function(err, articles) {
     if(err) {
       throw err;
     } else {
       var locals = {
-        newsContent: news,
+        articles: articles,
         user: req.user
       };
       res.render('./index', locals);
@@ -15,33 +15,34 @@ exports.index = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  NewsItem.find({
+  Article.find({
     "_id": req.params.id
-  }, function(err, news) {
+  }, function(err, articles) {
     if (err) {
       throw err;
     }
     else {
       var locals = {
-        newsItem: news[0]
+        article: articles[0],
+        user: req.user
       };
-      res.render('./news/show', locals);
+      res.render('./article/show', locals);
     }
   });
 };
 
-exports.showNew = function(req, res) {
-  res.render('./news/new');
+exports.add = function(req, res) {
+  res.render('./article/new');
 };
 
 exports.create = function(req, res) {
-  var news = NewsItem({
+  var article = Article({
     "title": req.body.title,
     "author": req.body.author,
     "body": req.body.body
   });
 
-  news.save(function(err) {
+  article.save(function(err) {
     if (err) {
       throw err;
     }
@@ -52,23 +53,23 @@ exports.create = function(req, res) {
 };
 
 exports.edit = function(req, res) {
-  NewsItem.find({
+  Article.find({
     "_id": req.params.id
-  }, function(err, news) {
+  }, function(err, articles) {
     if (err) {
       throw err;
     }
     else {
       var locals = {
-        newsItem: news[0]
+        article: articles[0]
       };
-      res.render('./news/edit', locals);
+      res.render('./article/edit', locals);
     }
   });
 };
 
 exports.update = function(req, res) {
-  NewsItem.update({
+  Article.update({
     "_id": req.params.id
   }, {
     "title": req.body.title,
@@ -79,13 +80,13 @@ exports.update = function(req, res) {
       throw err;
     }
     else {
-      res.redirect('/news/' + req.params.id);
+      res.redirect('/articles/' + req.params.id);
     }
   });
 };
 
 exports.destroy = function(req, res) {
-  NewsItem.remove({
+  Article.remove({
     "_id": req.params.id
   }, function(err) {
     if (err) {

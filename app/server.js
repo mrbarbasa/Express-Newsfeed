@@ -11,7 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var config = require('./config');
 
 // MODELS
-var NewsItem = require('./models/news');
+var Article = require('./models/article');
 var User = require('./models/user');
 
 // DB CONNECTION
@@ -21,7 +21,6 @@ mongoose.connect(config.database_uri);
 app.use(express.static('./public'));
 app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({ extended: true }));
-// override with POST having ?_method=DELETE
 app.use(methodOverride('_method'));
 
 app.use(session({
@@ -60,13 +59,5 @@ passport.deserializeUser(function(user, done) {
 
 // ROUTES
 require('./routes')(app, passport);
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  // Not authenticated
-  res.redirect('/login');
-}
 
 module.exports.app = app;

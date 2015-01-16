@@ -1,0 +1,15 @@
+extends ../layout.jade
+
+block content
+  .content-block
+    .row
+      .small-12.medium-12.large-12.columns
+        .article-form
+          form(method='post', action='/articles/#{article._id}?_method=PUT')
+            label(for='title') Title
+            input(type='text', name='title', id='title',value='#{article.title}')
+            label(for='author') Author
+            input(type='text', name='author', id='author', value='#{article.author}')
+            label(for='body') Body
+            textarea(name='body', value='', id='body', rows='20') #{article.body}
+            input(type='submit', name='update', value='Update', class='button radius small')#update_button

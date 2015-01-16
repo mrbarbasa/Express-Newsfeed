@@ -1,18 +1,18 @@
 extends ./layout.jade
 
-mixin renderNewsItems()
+mixin renderArticles()
   - var columnSize = 4, elementsInRow = 12/columnSize
-  each _, x in newsContent
+  each _, x in articles
     if (x % elementsInRow === 0)
       .row
-        each newsItem, y in newsContent.slice(x, x + elementsInRow)
+        each article, y in articles.slice(x, x + elementsInRow)
           .small-12.medium-12.large-4.columns
-            .news-item
-              .news-image
+            .article-item
+              .article-image
                 img(src="http://lorempixel.com/240/78/cats/", alt="Hello News")
-              .news-text
-                h3: a(id="news-title", href="/news/#{newsItem._id}") #{newsItem.title}
-                p #{newsItem.body}
+              .article-text
+                h3: a(id="article-title", href="/articles/#{article._id}") #{article.title}
+                p #{article.body}
 
 block content
   .row.clearfix
@@ -21,10 +21,10 @@ block content
       a(id="login-button", href="/login", class='button radius tiny') Log in
     else
       a(id="logout-button", href="/logout", class='button radius tiny') Log out
-      a(id="post-button", href="/new_news", class='button radius tiny') Post News Article
+      a(id="post-button", href="/article/new", class='button radius tiny') Post News Article
       a(id="account-link", href="/account") #{user.username}
   .row
     .content-block
-      +renderNewsItems
+      +renderArticles
 
 

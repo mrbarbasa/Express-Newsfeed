@@ -94,17 +94,17 @@ header.header-block {
       }
     }
   }
-  .news-form {
+  .article-form {
     width: 90%;
     margin: 36px auto;
     label {
       font-size: 1.2em;
     }
   }
-  .news-item {
+  .article-item {
     // background-color: lightblue;
     margin-top: 24px;
-    .news-text {
+    .article-text {
       // background-color: lightgreen;
       h3 {
         color: #2D2D2D;
@@ -114,7 +114,7 @@ header.header-block {
         font-size: 0.9em;
       }
     }
-    .news-image {
+    .article-image {
       // background-color: yellow;
       img {
         // background-image: url("http://lorempixel.com/1000/700/cats/");
@@ -124,17 +124,17 @@ header.header-block {
     }
   }
 
-  .news-article {
+  .article-content {
     background-color: white;
     padding: 50px 100px;
     margin: 30px -0.9375rem;
 
-    .news-title {
+    .article-title {
       // background-color: orange;
       margin-bottom: 20px;
     }
 
-    .news-actions {
+    .article-actions {
       a {
         float: left;
         margin-right: 20px;
@@ -144,7 +144,7 @@ header.header-block {
       }
     }
 
-    .news-author {
+    .article-author {
       border-top: 1px solid #D5D5D5;
       border-bottom: 1px solid #D5D5D5;
       h5 {
@@ -154,7 +154,7 @@ header.header-block {
       }
     }
 
-    .news-text {
+    .article-text {
       // background-color: orange;
       margin: 20px 0;
       p {
@@ -162,7 +162,7 @@ header.header-block {
       }
     }
 
-    .news-image {
+    .article-image {
       margin-bottom: 30px;
     }
   }

@@ -6082,42 +6082,42 @@ header.header-block h1#site-title a:hover {
     font-family: 'Lato'; }
   .content-block .login-block form input.login {
     width: 100%; }
-.content-block .news-form {
+.content-block .article-form {
   width: 90%;
   margin: 36px auto; }
-  .content-block .news-form label {
+  .content-block .article-form label {
     font-size: 1.2em; }
-.content-block .news-item {
+.content-block .article-item {
   margin-top: 24px; }
-  .content-block .news-item .news-text h3 {
+  .content-block .article-item .article-text h3 {
     color: #2D2D2D;
     font-size: 1.1em; }
-  .content-block .news-item .news-text p {
+  .content-block .article-item .article-text p {
     font-size: 0.9em; }
-  .content-block .news-item .news-image img {
+  .content-block .article-item .article-image img {
     width: 100%;
     height: auto; }
-.content-block .news-article {
+.content-block .article-content {
   background-color: white;
   padding: 50px 100px;
   margin: 30px -0.9375rem; }
-  .content-block .news-article .news-title {
+  .content-block .article-content .article-title {
     margin-bottom: 20px; }
-  .content-block .news-article .news-actions a {
+  .content-block .article-content .article-actions a {
     float: left;
     margin-right: 20px; }
-  .content-block .news-article .news-actions form {
+  .content-block .article-content .article-actions form {
     float: left; }
-  .content-block .news-article .news-author {
+  .content-block .article-content .article-author {
     border-top: 1px solid #D5D5D5;
     border-bottom: 1px solid #D5D5D5; }
-    .content-block .news-article .news-author h5 {
+    .content-block .article-content .article-author h5 {
       font-style: italic; }
-  .content-block .news-article .news-text {
+  .content-block .article-content .article-text {
     margin: 20px 0; }
-    .content-block .news-article .news-text p {
+    .content-block .article-content .article-text p {
       font-size: 1.3em; }
-  .content-block .news-article .news-image {
+  .content-block .article-content .article-image {
     margin-bottom: 30px; }
 
 @media only screen and (max-width: 64em) {
