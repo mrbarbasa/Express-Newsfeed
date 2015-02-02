@@ -6058,8 +6058,11 @@ header.header-block h1#site-title a:hover {
     width: 95%;
     margin: auto; } }
 
-#account-link {
-  font-style: italic; }
+a#account-link {
+  font-style: italic;
+  color: #2D2D2D; }
+  a#account-link:hover {
+    color: #008CBA; }
 
 #signup-button, #login-button, #account-link, #post-button {
   float: right;
@@ -6090,8 +6093,11 @@ header.header-block h1#site-title a:hover {
 .content-block .article-item {
   margin-top: 24px; }
   .content-block .article-item .article-text h3 {
-    color: #2D2D2D;
     font-size: 1.1em; }
+    .content-block .article-item .article-text h3 a {
+      color: #2D2D2D; }
+      .content-block .article-item .article-text h3 a:hover {
+        color: #008CBA; }
   .content-block .article-item .article-text p {
     font-size: 0.9em; }
   .content-block .article-item .article-image img {

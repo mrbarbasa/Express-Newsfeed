@@ -50,8 +50,12 @@ header.header-block {
   }
 }
 
-#account-link {
+a#account-link {
   font-style: italic;
+  color: #2D2D2D;
+  &:hover {
+    color: #008CBA;
+  }
 }
 
 #signup-button, #login-button, #account-link, #post-button {
@@ -107,8 +111,13 @@ header.header-block {
     .article-text {
       // background-color: lightgreen;
       h3 {
-        color: #2D2D2D;
         font-size: 1.1em;
+        a {
+          color: #2D2D2D;
+          &:hover {
+            color: #008CBA;
+          }
+        }
       }
       p {
         font-size: 0.9em;
